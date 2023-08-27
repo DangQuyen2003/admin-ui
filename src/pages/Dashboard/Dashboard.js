@@ -8,8 +8,32 @@ import {
 } from "@ant-design/icons";
 import RecentOrders from "./RecentOrders/RecentOrders";
 import VerticalBar from "./DashboardVerticalBar/VerticalBar";
+import { useEffect, useState } from "react";
+import { getInventory, getOrders,  getUsers } from "~/API";
 
 function Dashboard() {
+
+  const [orders, setOrders] = useState(0)
+  const [inventory, setInventory] = useState(0)
+  const [users, setUsers] = useState(0)
+  const [revenue, setRevenue] = useState(0)
+
+  useEffect(() => {
+    getOrders().then((res) => {
+      setOrders(res.total)
+      setRevenue(res.discountedTotal)
+    })
+    getInventory().then((res) => {
+      setInventory(res.total)
+    })
+    getUsers().then((res) => {
+      setUsers(res.total)
+    })
+    // getRevenue().then((res) => {
+    //   setRevenue(res.total)
+    // })
+  },[])
+
   return (
     <Space size={20} direction="vertical">
       <Typography.Title level={3}>Dashboard</Typography.Title>
@@ -27,7 +51,7 @@ function Dashboard() {
             />
           }
           title={"Orders"}
-          value={123}
+          value={orders}
         />
         <DashboardCard
           icon={
@@ -42,7 +66,7 @@ function Dashboard() {
             />
           }
           title={"Inventory"}
-          value={123}
+          value={inventory}
         />
         <DashboardCard
           icon={
@@ -57,7 +81,7 @@ function Dashboard() {
             />
           }
           title={"Customers"}
-          value={123}
+          value={users}
         />
         <DashboardCard
           icon={
@@ -72,7 +96,7 @@ function Dashboard() {
             />
           }
           title={"Revenue"}
-          value={123}
+          value={revenue}
         />
       </Space>
       <Space>

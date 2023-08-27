@@ -1,4 +1,4 @@
-import { Space } from "antd";
+// import { Space } from "antd";
 
 
 import "./App.css";
@@ -11,10 +11,10 @@ function App() {
   return (
     <div className="app">
       <HeaderPage />
-      <Space className="menu-content">
+      <div className="menu-content">
         <MenuPage></MenuPage>
         <ContentPage></ContentPage>
-      </Space>
+      </div>
       <FooterPage/>
     </div>
   );
